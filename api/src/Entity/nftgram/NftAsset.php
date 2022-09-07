@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * This is a dummy entity. Remove it!
+ * This is a NFT Asset entity.
  */
 #[ApiResource(mercure:true)]
 #[ORM\Entity]
