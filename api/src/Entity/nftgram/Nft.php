@@ -7,8 +7,6 @@ use ApiPlatform\Metadata\ApiResource;
 //use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use JetBrains\PhpStorm\Pure;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This is a dummy entity. Remove it!
@@ -122,28 +120,20 @@ class Nft
 
 //    #[ORM\OneToMany(mappedBy: 'nft', targetEntity: NftAsset::class, orphanRemoval: true)]
     #[ORM\ManyToOne(targetEntity: NftAsset::class, fetch: 'LAZY')]
-    #[ORM\JoinColumn(name: 'nft_asset_id',nullable: false)]
+    #[ORM\JoinColumn(name: 'nft_asset_id', referencedColumnName: 'nft_asset_id', nullable: false)]
     public iterable $nft_asset;
 
-    #[Pure] public function __construct()
+    public function __construct()
     {
         $this->nft_asset = new ArrayCollection();
 //        $this->nftCollection = new ArrayCollection();
 //        $this->nftProperties = new ArrayCollection();
     }
 
-    #[ORM\Column(enumType: \ActiveStatus::class)]
-    public \ActiveStatus $active_status = \ActiveStatus::ACTIVE;
+    #[ORM\Column]
+    public string $active_status = 'ACTIVE';
 
     public int $property_order = 0;
-
-    /**
-     * @param int|null $nft_id
-     */
-    public function setNftId(?int $nft_id): void
-    {
-        $this->nft_id = $nft_id;
-    }
 
     /**
      * @return int|null
